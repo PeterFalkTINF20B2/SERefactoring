@@ -22,8 +22,8 @@ class Customer {
 		double totalAmount = 0;
 		int frequentRenterPoints = 0;
 		Enumeration enum_rentals = rentals.elements();
-		String result = "Rental Record for " + this.getName() + "\n";
-		result += "\t" + "Title" + "\t" + "\t" + "Days" + "\t" + "Amount" + "\n";
+		
+		String result = getHeaderLine();
 
 		while (enum_rentals.hasMoreElements()) {
 			Rental aRental = (Rental) enum_rentals.nextElement();
@@ -38,9 +38,21 @@ class Customer {
 					+ String.valueOf(aRental.getCharge()) + "\n";
 			totalAmount += aRental.getCharge();
 		}
+		
 		// add footer lines
-		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-		result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
+		result += getFooterLines(totalAmount, frequentRenterPoints);
 		return result;
+	}
+
+	private String getFooterLines(double totalAmount, double frequentRenterPoints) {
+		String footerLines = "Amount owed is " + String.valueOf(totalAmount) + "\n";
+		footerLines += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
+		return footerLines;
+	}
+	
+	private String getHeaderLine() {
+		String headerLine = "Rental Record for " + this.getName() + "\n";
+		headerLine += "\t" + "Title" + "\t" + "\t" + "Days" + "\t" + "Amount" + "\n";
+		return headerLine;
 	}
 }
