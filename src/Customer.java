@@ -28,7 +28,7 @@ class Customer {
 			Rental aRental = (Rental) enum_rentals.nextElement();
 			
 			// add frequent renter points
-			frequentRenterPoints += getFrequentRenterPoints(aRental);
+			frequentRenterPoints += aRental.getFrequentRenterPoints();
 			
 			// show figures for this rental
 			result += "\t" + aRental.getMovie().getTitle() + "\t" + "\t" + aRental.getDaysRented() + "\t"
@@ -51,13 +51,5 @@ class Customer {
 		String headerLine = "Rental Record for " + this.getName() + "\n";
 		headerLine += "\t" + "Title" + "\t" + "\t" + "Days" + "\t" + "Amount" + "\n";
 		return headerLine;
-	}
-
-	private int getFrequentRenterPoints(Rental aRental) {
-		if ((aRental.getMovie().getPriceCode() == Movie.NEW_RELEASE) && aRental.getDaysRented() > 1) {
-			return 2;
-		} else {
-			return 1;
-		}
 	}
 }
