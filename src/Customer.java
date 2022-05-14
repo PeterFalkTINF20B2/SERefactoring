@@ -1,5 +1,4 @@
 
-import java.lang.*;
 import java.util.*;
 
 class Customer {
@@ -22,23 +21,21 @@ class Customer {
 		double totalAmount = 0;
 		int frequentRenterPoints = 0;
 		Enumeration enum_rentals = rentals.elements();
-		
+
 		String result = getHeaderLine();
 
 		while (enum_rentals.hasMoreElements()) {
 			Rental aRental = (Rental) enum_rentals.nextElement();
-			// determine amounts for each line
+			
 			// add frequent renter points
-			frequentRenterPoints++;
-			// add bonus for a two day new release rental
-			if ((aRental.getMovie().getPriceCode() == Movie.NEW_RELEASE) && aRental.getDaysRented() > 1)
-				frequentRenterPoints++;
+			frequentRenterPoints += getFrequentRenterPoints(aRental);
+			
 			// show figures for this rental
 			result += "\t" + aRental.getMovie().getTitle() + "\t" + "\t" + aRental.getDaysRented() + "\t"
 					+ String.valueOf(aRental.getCharge()) + "\n";
 			totalAmount += aRental.getCharge();
 		}
-		
+
 		// add footer lines
 		result += getFooterLines(totalAmount, frequentRenterPoints);
 		return result;
@@ -49,10 +46,18 @@ class Customer {
 		footerLines += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
 		return footerLines;
 	}
-	
+
 	private String getHeaderLine() {
 		String headerLine = "Rental Record for " + this.getName() + "\n";
 		headerLine += "\t" + "Title" + "\t" + "\t" + "Days" + "\t" + "Amount" + "\n";
 		return headerLine;
+	}
+
+	private int getFrequentRenterPoints(Rental aRental) {
+		if ((aRental.getMovie().getPriceCode() == Movie.NEW_RELEASE) && aRental.getDaysRented() > 1) {
+			return 2;
+		} else {
+			return 1;
+		}
 	}
 }
