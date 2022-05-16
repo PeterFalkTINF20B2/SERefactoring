@@ -16,6 +16,10 @@ class Customer {
 	public String getName() {
 		return name;
 	}
+	
+	public Vector getRentals() {
+		return rentals;
+	}
 
 	public String statement() {
 		double totalAmount = 0;
